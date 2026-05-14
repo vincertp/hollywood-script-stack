@@ -1,0 +1,47 @@
+name: Validate Skills
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check all SKILL.md files exist
+        run: |
+          MISSING=0
+          for skill in pitch showrunner structure story-edit draft script-doctor table-read production-lock develop; do
+            if [ ! -f "${skill}/SKILL.md" ]; then
+              echo "Missing: ${skill}/SKILL.md"
+              MISSING=1
+            else
+              echo "OK: ${skill}/SKILL.md"
+            fi
+          done
+          exit $MISSING
+
+      - name: Check SKILL.md files are non-empty
+        run: |
+          for f in */SKILL.md; do
+            SIZE=$(wc -c < "$f")
+            if [ "$SIZE" -lt 100 ]; then
+              echo "FAIL: $f too short (${SIZE} bytes)"
+              exit 1
+            fi
+            echo "OK: $f (${SIZE} bytes)"
+          done
+
+      - name: Check required docs exist
+        run: |
+          for doc in README.md docs/workflow.md LICENSE; do
+            if [ ! -f "$doc" ]; then
+              echo "Missing: $doc"
+              exit 1
+            fi
+            echo "OK: $doc"
+          done
