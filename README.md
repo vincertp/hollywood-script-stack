@@ -2,6 +2,8 @@
 
 > 借鑑 [gstack](https://github.com/garrytan/gstack) 的 specialist-role 架構，為好萊塢劇本開發工作流程打造的 AI 協作系統。
 
+[![Validate Skills](https://github.com/vincertp/hollywood-script-stack/actions/workflows/validate.yml/badge.svg)](https://github.com/vincertp/hollywood-script-stack/actions/workflows/validate.yml)
+
 gstack 的核心洞察：**把流程本身編碼為提示詞**。23 個 specialist skill 的力量不在於工具，在於**結構化交接（structured handoffs）**——每個 skill 的輸出直接成為下一個 skill 的輸入，形成不可跳過的 review 鏈。
 
 好萊塢開發流程天然就有相同的 gate 結構。它只是從來沒有被形式化過。這個 repo 解決這個問題。
